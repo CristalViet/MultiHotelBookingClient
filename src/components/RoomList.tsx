@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { Filter, SortAsc, Calendar, Users, Grid, List } from 'lucide-react';
 import RoomCard from './RoomCard';
 
@@ -40,6 +41,10 @@ interface RoomListProps {
   checkIn?: string;
   checkOut?: string;
   guests?: number;
+  adults?: number;
+  children?: number;
+  roomsCount?: number;
+  hotelId?: string;
   onRoomBook?: (roomId: string) => void;
   onRoomDetails?: (roomId: string) => void;
 }
@@ -52,10 +57,19 @@ export default function RoomList({
   checkIn, 
   checkOut, 
   guests, 
+  adults = 2,
+  children = 0,
+  roomsCount = 1,
+  hotelId,
   onRoomBook, 
   onRoomDetails 
 }: RoomListProps) {
   const t = useTranslations('hotelDetail');
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Get current locale from pathname
+  const currentLocale = pathname.split('/')[1] || 'en';
   const [sortBy, setSortBy] = useState<SortOption>('popular');
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [filters, setFilters] = useState({
@@ -150,6 +164,26 @@ export default function RoomList({
 
   const maxPrice = Math.max(...rooms.map(room => room.price.current));
   const categories = Array.from(new Set(rooms.map(room => room.category)));
+
+  // Handle room booking navigation
+  const handleRoomBooking = (roomId: string) => {
+    if (onRoomBook) {
+      onRoomBook(roomId);
+    } else {
+      // Default navigation to booking page
+      const params = new URLSearchParams({
+        roomId,
+        ...(hotelId && { hotelId }),
+        ...(checkIn && { checkIn }),
+        ...(checkOut && { checkOut }),
+        adults: adults.toString(),
+        children: children.toString(),
+        rooms: roomsCount.toString()
+      });
+      
+      router.push(`/${currentLocale}/booking?${params.toString()}`);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -340,7 +374,7 @@ export default function RoomList({
                 <RoomCard
                   key={room.id}
                   room={room}
-                  onBookNow={onRoomBook}
+                  onBookNow={handleRoomBooking}
                   onViewDetails={onRoomDetails}
                 />
               ))}
@@ -359,7 +393,7 @@ export default function RoomList({
                 <RoomCard
                   key={room.id}
                   room={room}
-                  onBookNow={onRoomBook}
+                  onBookNow={handleRoomBooking}
                   onViewDetails={onRoomDetails}
                 />
               ))}

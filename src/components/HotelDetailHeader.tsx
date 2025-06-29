@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Star, MapPin, Heart, Share2, Award, Verified } from 'lucide-react';
 import { useState } from 'react';
+import RoomSelector from './RoomSelector';
 
 interface HotelDetailHeaderProps {
   hotel: {
@@ -21,17 +22,29 @@ interface HotelDetailHeaderProps {
       currency: string;
     };
   };
+  rooms?: Array<{
+    id: string;
+    name: string;
+    price: { current: number; currency: string };
+    maxGuests: number;
+    maxAdults?: number;
+    maxChildren?: number;
+  }>;
   onShareClick?: () => void;
   onFavoriteClick?: () => void;
+  onRoomSelectionChange?: (selectedRooms: any[]) => void;
 }
 
 export default function HotelDetailHeader({ 
   hotel, 
+  rooms = [],
   onShareClick, 
-  onFavoriteClick 
+  onFavoriteClick,
+  onRoomSelectionChange 
 }: HotelDetailHeaderProps) {
   const t = useTranslations('hotelDetail');
   const [isFavorite, setIsFavorite] = useState(false);
+  const [selectedRooms, setSelectedRooms] = useState([]);
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
@@ -40,6 +53,11 @@ export default function HotelDetailHeader({
 
   const handleShare = () => {
     onShareClick?.();
+  };
+
+  const handleRoomSelection = (rooms: any[]) => {
+    setSelectedRooms(rooms);
+    onRoomSelectionChange?.(rooms);
   };
 
   const getRatingLabel = (rating: number) => {
@@ -126,10 +144,24 @@ export default function HotelDetailHeader({
                 <p className="text-sm">{hotel.address}</p>
               </div>
             </div>
+
+            {/* Room Selector - Compact version for mobile/tablet */}
+            {rooms.length > 0 && (
+              <div className="lg:hidden mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Rooms & Guests
+                </label>
+                <RoomSelector
+                  rooms={rooms}
+                  onSelectionChange={handleRoomSelection}
+                  compact={true}
+                />
+              </div>
+            )}
           </div>
 
           {/* Right Side - Actions & Price */}
-          <div className="lg:text-right">
+          <div className="lg:text-right lg:min-w-[300px]">
             {/* Action Buttons */}
             <div className="flex lg:justify-end gap-3 mb-4">
               <button
@@ -155,6 +187,20 @@ export default function HotelDetailHeader({
               </button>
             </div>
 
+            {/* Room Selector - Full version for desktop */}
+            {rooms.length > 0 && (
+              <div className="hidden lg:block mb-4">
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h3 className="font-medium text-gray-900 mb-3">Quick Room Selection</h3>
+                  <RoomSelector
+                    rooms={rooms}
+                    onSelectionChange={handleRoomSelection}
+                    compact={true}
+                  />
+                </div>
+              </div>
+            )}
+
             {/* Price Range */}
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="text-sm text-gray-600 mb-1">{t('priceFrom')}</div>
@@ -165,6 +211,16 @@ export default function HotelDetailHeader({
                 <span className="text-gray-600">- {hotel.priceRange.currency}{hotel.priceRange.max.toLocaleString()}</span>
               </div>
               <div className="text-sm text-gray-600 mt-1">{t('perNight')}</div>
+              
+              {/* Show selected rooms total if any */}
+              {selectedRooms.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-gray-200">
+                  <div className="text-sm text-gray-600">Selected rooms total:</div>
+                  <div className="text-lg font-bold text-primary-600">
+                    ${selectedRooms.reduce((total, room) => total + room.room.price.current * room.quantity, 0)}/night
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

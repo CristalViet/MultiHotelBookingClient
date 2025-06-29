@@ -9,6 +9,7 @@ import RoomList from '@/components/RoomList';
 import AmenitiesList from '@/components/AmenitiesList';
 import LocalExperienceBlock from '@/components/LocalExperienceBlock';
 import LanguageCurrencySelector from '@/components/LanguageCurrencySelector';
+import DateTimePicker from '@/components/DateTimePicker';
 
 export default function HotelDetailPage() {
   const t = useTranslations('demo');
@@ -18,6 +19,13 @@ export default function HotelDetailPage() {
   // Get current locale from pathname
   const currentLocale = pathname.split('/')[1] || 'en';
   const [currentCurrency, setCurrentCurrency] = useState('USD');
+  
+  // Add this line - state for selected rooms
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  
+  // State for date selection
+  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
 
   // Mock data for demo
   const mockHotel = {
@@ -165,6 +173,14 @@ export default function HotelDetailPage() {
     { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', rate: 1.36 }
   ];
 
+  // Add this - create rooms data for RoomSelector
+  const roomsForSelector = mockRooms.map(room => ({
+    id: room.id,
+    name: room.name,
+    price: room.price,
+    maxGuests: room.maxGuests
+  }));
+
   // Handle language change
   const handleLanguageChange = (languageCode: string) => {
     const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '') || '/';
@@ -176,13 +192,21 @@ export default function HotelDetailPage() {
     setCurrentCurrency(currencyCode);
   };
 
+  // Add this - handle room selection
+  const handleRoomSelectionChange = (rooms: any[]) => {
+    setSelectedRooms(rooms);
+    console.log('Selected rooms:', rooms);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hotel Header */}
       <HotelDetailHeader
         hotel={mockHotel}
+        rooms={roomsForSelector}
         onShareClick={() => console.log('Share')}
         onFavoriteClick={() => console.log('Favorite')}
+        onRoomSelectionChange={handleRoomSelectionChange}
       />
 
       {/* Main Content */}
@@ -203,9 +227,13 @@ export default function HotelDetailPage() {
             <section>
               <RoomList
                 rooms={mockRooms}
-                checkIn="2024-01-15"
-                checkOut="2024-01-17"
+                checkIn={checkInDate?.toISOString().split('T')[0] || "2024-01-15"}
+                checkOut={checkOutDate?.toISOString().split('T')[0] || "2024-01-17"}
                 guests={2}
+                adults={2}
+                children={0}
+                roomsCount={1}
+                hotelId="hotel-1"
               />
             </section>
 
@@ -230,34 +258,38 @@ export default function HotelDetailPage() {
 
           {/* Right Sidebar */}
           <div className="space-y-6">
-            {/* Booking Widget */}
-            <div className="card p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('sections.bookYourStay')}</h3>
+             {/* Booking Widget */}
+             <div className="card p-6 overflow-visible relative">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Book Your Stay</h3>
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('sections.checkIn')}</label>
-                  <input
-                    type="date"
-                    defaultValue="2024-01-15"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-primary-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{t('sections.checkOut')}</label>
-                  <input
-                    type="date"
-                    defaultValue="2024-01-17"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-primary-500"
-                  />
-                </div>
-                <button className="w-full btn-primary">
-                  {t('sections.checkAvailability')}
+                <DateTimePicker
+                  checkIn={checkInDate}
+                  checkOut={checkOutDate}
+                  onCheckInChange={setCheckInDate}
+                  onCheckOutChange={setCheckOutDate}
+                  minStayNights={1}
+                  maxStayNights={30}
+                  showTimeSelection={true}
+                  earlyCheckIn={true}
+                  lateCheckOut={true}
+                />
+                <button 
+                  className="w-full btn-primary"
+                  onClick={() => {
+                    if (checkInDate && checkOutDate) {
+                      console.log('Check availability:', { checkInDate, checkOutDate });
+                    } else {
+                      alert('Please select check-in and check-out dates');
+                    }
+                  }}
+                >
+                  Check Availability
                 </button>
               </div>
             </div>
 
             {/* Settings */}
-            <div className="card p-6">
+            <div className="card p-6 overflow-visible relative">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('sections.preferences')}</h3>
               <LanguageCurrencySelector
                 currentLanguage={currentLocale}
