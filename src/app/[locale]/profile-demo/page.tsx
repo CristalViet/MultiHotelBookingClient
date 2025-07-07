@@ -8,6 +8,24 @@ import MyTripsList from '@/components/MyTripsList';
 import TripCard from '@/components/TripCard';
 import ItineraryMapView from '@/components/ItineraryMapView';
 
+interface Trip {
+  id: string;
+  destination: string;
+  hotel: string;
+  checkIn: string;
+  checkOut: string;
+  guests: number;
+  rooms: number;
+  status: 'upcoming' | 'completed' | 'cancelled';
+  totalCost: number;
+  currency: string;
+  image: string;
+  bookingReference: string;
+  roomType: string;
+  rating?: number;
+  review?: string;
+}
+
 export default function ProfileDemoPage() {
   const t = useTranslations();
   const [currentDemo, setCurrentDemo] = useState('user-profile');
@@ -43,7 +61,7 @@ export default function ProfileDemoPage() {
   };
 
   // Mock trips data
-  const mockTrips = [
+  const mockTrips: Trip[] = [
     {
       id: 'trip-1',
       destination: 'Tokyo, Japan',

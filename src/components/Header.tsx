@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import LanguageSelector from './LanguageSelector';
 import AuthModal, { useAuthModal } from './AuthModal';
-import { Menu, X, User, ChevronDown, Settings, LogOut, Calendar } from 'lucide-react';
+import { Menu, X, User, ChevronDown, Settings, LogOut, Calendar, Shield } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
@@ -159,6 +159,15 @@ export default function Header() {
                       >
                         <Calendar className="w-5 h-5" />
                         <span>My Bookings</span>
+                      </Link>
+                      
+                      <Link
+                        href={`/${currentLocale}/admin`}
+                        className="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 transition-colors"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <Shield className="w-5 h-5" />
+                        <span>Admin Panel</span>
                       </Link>
                       
                       <button

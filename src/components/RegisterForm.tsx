@@ -19,6 +19,14 @@ interface FormData {
   agreeToTerms: boolean;
 }
 
+interface ValidationErrors {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  agreeToTerms?: string;
+}
+
 export default function RegisterForm({
   onSubmit,
   onSwitchToLogin,
@@ -35,7 +43,7 @@ export default function RegisterForm({
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [validationErrors, setValidationErrors] = useState<Partial<FormData>>({});
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
 
   const validateEmail = (email: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,7 +61,7 @@ export default function RegisterForm({
   };
 
   const validateForm = () => {
-    const errors: Partial<FormData> = {};
+    const errors: ValidationErrors = {};
 
     // Name validation
     if (!formData.name.trim()) {
@@ -105,8 +113,8 @@ export default function RegisterForm({
   const handleInputChange = (field: keyof FormData, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     // Clear validation error when user starts typing
-    if (validationErrors[field]) {
-      setValidationErrors(prev => ({ ...prev, [field]: undefined }));
+    if (validationErrors[field as keyof ValidationErrors]) {
+      setValidationErrors(prev => ({ ...prev, [field as keyof ValidationErrors]: undefined }));
     }
   };
 
