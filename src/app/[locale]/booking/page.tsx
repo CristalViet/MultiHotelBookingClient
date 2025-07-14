@@ -46,9 +46,9 @@ export default function BookingPage() {
   };
 
   const mockHotel = {
-    name: 'Luxury Grand Hotel',
-    location: 'Hanoi Old Quarter, Vietnam',
-    rating: 4.8
+    name: 'Tuần Châu Resort Hạ Long',
+    location: 'Đảo Tuần Châu, Hạ Long, Quảng Ninh',
+    rating: 4.9
   };
 
   // Load saved booking data on mount

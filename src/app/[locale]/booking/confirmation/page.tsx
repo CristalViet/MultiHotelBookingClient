@@ -16,17 +16,35 @@ export default function ConfirmationPage() {
   const currentLocale = pathname.split('/')[1] || 'en';
 
   useEffect(() => {
+    // Get URL parameters
+    const bookingId = searchParams.get('bookingId');
+    const paymentMethod = searchParams.get('paymentMethod');
+    
     // Get confirmation data from localStorage
     const storedData = localStorage.getItem('confirmationData');
     if (storedData) {
-      setConfirmationData(JSON.parse(storedData));
+      const data = JSON.parse(storedData);
+      
+      // Handle different payment methods
+      if (paymentMethod === 'pay-later') {
+        // For pay later bookings, mark as confirmed
+        data.paymentStatus = 'PAY_LATER';
+        data.bookingStatus = 'CONFIRMED';
+      } else if (data.paymentStatus === 'PENDING' && bookingId) {
+        // For PayOS payments, check if payment was successful
+        // In real app, verify with PayOS API
+        data.paymentStatus = 'PAID';
+        data.bookingStatus = 'CONFIRMED';
+      }
+      
+      setConfirmationData(data);
     } else {
       // Try to get booking data as fallback
       const bookingData = localStorage.getItem('bookingData');
       if (bookingData) {
         const data = JSON.parse(bookingData);
         // Generate confirmation data from booking data
-        const confirmationId = 'HTL-CONF-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+        const confirmationId = bookingId || 'HTL-CONF-' + Math.random().toString(36).substr(2, 6).toUpperCase();
         const transactionId = 'TXN-2024-' + Math.random().toString(36).substr(2, 6).toUpperCase();
         
         setConfirmationData({
@@ -35,14 +53,16 @@ export default function ConfirmationPage() {
           confirmationNumber: confirmationId,
           transactionId: transactionId,
           bookingDate: new Date().toISOString(),
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
+          paymentStatus: paymentMethod === 'pay-later' ? 'PAY_LATER' : 'PAID',
+          bookingStatus: 'CONFIRMED'
         });
       } else {
         // If no data at all, redirect to home
         router.push(`/${currentLocale}`);
       }
     }
-  }, [router, currentLocale]);
+  }, [router, currentLocale, searchParams]);
 
   useEffect(() => {
     // Clean up localStorage after successful booking
@@ -132,12 +152,12 @@ export default function ConfirmationPage() {
   };
 
   const mockHotel = {
-    name: 'Luxury Grand Hotel',
-    location: 'Hanoi Old Quarter, Vietnam',
-    address: '123 Luxury Ave, Hanoi Old Quarter, Vietnam',
-    rating: 4.8,
-    phone: '+84 24 3828 5555',
-    email: 'info@luxurygrandhotel.com'
+    name: 'Tuần Châu Resort Hạ Long',
+    location: 'Đảo Tuần Châu, Hạ Long, Quảng Ninh',
+    address: 'Đảo Tuần Châu, Thành Phố Hạ Long, Tỉnh Quảng Ninh, Việt Nam',
+    rating: 4.9,
+    phone: '1900 93 88',
+    email: 'info@tuanchauresort.com.vn'
   };
 
   // Calculate pricing

@@ -33,7 +33,7 @@ export default function PaymentDemoPage() {
       name: 'Grand Hotel Paradise',
       address: '123 Luxury Ave, Miami Beach, FL 33139',
       phone: '+1 (555) 123-4567',
-      email: 'info@grandhotelparadise.com'
+      email: 'info@tuanchauresort.com.vn'
     },
     booking: {
       checkIn: '2024-03-15',

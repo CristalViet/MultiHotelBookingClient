@@ -29,8 +29,8 @@ export default function BookingsPage() {
         capacity: 2,
         amenities: ['Free WiFi', 'Air Conditioning', 'TV', 'Coffee Machine']
       },
-      hotelName: 'Luxury Grand Hotel',
-      hotelLocation: 'Hanoi Old Quarter, Vietnam',
+      hotelName: 'Tuần Châu Resort Hạ Long',
+      hotelLocation: 'Đảo Tuần Châu, Hạ Long, Quảng Ninh',
       hotelRating: 4.8,
       checkIn: '2024-02-15',
       checkOut: '2024-02-17',
@@ -64,8 +64,8 @@ export default function BookingsPage() {
         capacity: 4,
         amenities: ['Free WiFi', 'Air Conditioning', 'TV', 'Mini Bar', 'Balcony']
       },
-      hotelName: 'Business Executive Hotel',
-      hotelLocation: 'Dong Da District, Hanoi',
+      hotelName: 'Tuần Châu Resort Hạ Long',
+      hotelLocation: 'Đảo Tuần Châu, Hạ Long, Quảng Ninh',
       hotelRating: 4.4,
       checkIn: '2024-03-20',
       checkOut: '2024-03-23',
@@ -99,8 +99,8 @@ export default function BookingsPage() {
         capacity: 2,
         amenities: ['Free WiFi', 'Air Conditioning', 'TV']
       },
-      hotelName: 'Budget Backpacker Inn',
-      hotelLocation: 'Ba Dinh District, Hanoi',
+      hotelName: 'Tuần Châu Resort Hạ Long',
+      hotelLocation: 'Đảo Tuần Châu, Hạ Long, Quảng Ninh',
       hotelRating: 4.2,
       checkIn: '2024-01-05',
       checkOut: '2024-01-07',

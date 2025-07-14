@@ -22,9 +22,9 @@
   },
   "home": {
     "hero": {
-      "title": "Tìm Nơi Nghỉ Hoàn Hảo",
-      "subtitle": "Khám phá những khách sạn và chỗ nghỉ tuyệt vời trên toàn thế giới",
-      "cta": "Bắt Đầu Hành Trình"
+      "title": "Chào mừng đến Tuần Châu Resort Hạ Long",
+      "subtitle": "Trải nghiệm nghỉ dưỡng đẳng cấp trên đảo Tuần Châu với tầm nhìn tuyệt đẹp ra Vịnh Hạ Long",
+      "cta": "Đặt phòng ngay"
     },
     "search": {
       "destination": "Bạn muốn đi đâu?",
@@ -33,7 +33,7 @@
       "checkout": "Trả phòng",
       "guests": "Khách",
       "guestsPlaceholder": "Chọn số khách",
-      "searchButton": "Tìm Khách Sạn",
+      "searchButton": "Kiểm tra phòng trống",
       "adults": "Người lớn",
       "children": "Trẻ em",
       "rooms": "Phòng"
@@ -368,9 +368,9 @@
     }
   },
   "demo": {
-    "hotelName": "Khách Sạn Grand Hà Nội",
-    "hotelLocation": "Quận Hoàn Kiếm, Hà Nội",
-    "hotelAddress": "15 Ngô Quyền, Quận Hoàn Kiếm, Hà Nội, Việt Nam",
+    "hotelName": "Tuần Châu Resort Hạ Long",
+    "hotelLocation": "Đảo Tuần Châu, Hạ Long",
+    "hotelAddress": "Đảo Tuần Châu, Thành Phố Hạ Long, Tỉnh Quảng Ninh, Việt Nam",
     "awards": {
       "tripAdvisor": "Lựa chọn của du khách TripAdvisor 2023",
       "bestHeritage": "Khách sạn Di sản tốt nhất 2023"
@@ -397,17 +397,17 @@
     },
     "amenities": {
       "freeWifi": "WiFi Miễn Phí",
-      "freeWifiDesc": "Internet tốc độ cao trong toàn bộ khách sạn",
-      "outdoorPool": "Hồ Bơi Ngoài Trời",
-      "outdoorPoolDesc": "Hồ bơi trên sân thượng với tầm nhìn thành phố",
-      "fitnessCenter": "Trung Tâm Thể Dục",
-      "fitnessCenterDesc": "Truy cập 24/7 với thiết bị hiện đại"
+      "freeWifiDesc": "Internet tốc độ cao trong toàn bộ resort",
+      "outdoorPool": "Hồ Bơi Ven Biển",
+      "outdoorPoolDesc": "Hồ bơi với tầm nhìn ra Vịnh Hạ Long",
+      "fitnessCenter": "Spa & Wellness",
+      "fitnessCenterDesc": "Dịch vụ spa và chăm sóc sức khỏe cao cấp"
     },
     "experiences": {
-      "hoanKiemLake": "Hồ Hoàn Kiếm",
-      "hoanKiemDesc": "Hồ lịch sử ở trung tâm Hà Nội",
-      "scenicViews": "Cảnh quan đẹp",
-      "historicSignificance": "Ý nghĩa lịch sử"
+      "hoanKiemLake": "Công viên Tuần Châu",
+      "hoanKiemDesc": "Công viên giải trí lớn ngay gần resort",
+      "scenicViews": "Tầm nhìn ra Vịnh Hạ Long",
+      "historicSignificance": "Kiến trúc giao thoa Việt-Pháp"
     },
     "sections": {
       "hotelGallery": "Thư Viện Ảnh Khách Sạn",

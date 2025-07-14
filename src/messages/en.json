@@ -22,9 +22,9 @@
   },
   "home": {
     "hero": {
-      "title": "Find Your Perfect Stay",
-      "subtitle": "Discover amazing hotels and accommodations worldwide",
-      "cta": "Start Your Journey"
+      "title": "Welcome to Tuan Chau Resort Ha Long",
+      "subtitle": "Experience luxury getaway on Tuan Chau Island with breathtaking views of Ha Long Bay",
+      "cta": "Book Now"
     },
     "search": {
       "destination": "Where are you going?",
@@ -33,7 +33,7 @@
       "checkout": "Check-out",
       "guests": "Guests",
       "guestsPlaceholder": "Select guests",
-      "searchButton": "Search Hotels",
+      "searchButton": "Check Availability",
       "adults": "Adults",
       "children": "Children",
       "rooms": "Rooms"
@@ -368,9 +368,9 @@
     }
   },
   "demo": {
-    "hotelName": "Grand Hotel Hanoi",
-    "hotelLocation": "Hoan Kiem District, Hanoi",
-    "hotelAddress": "15 Ngo Quyen Street, Hoan Kiem District, Hanoi, Vietnam",
+    "hotelName": "Tuan Chau Resort Ha Long",
+    "hotelLocation": "Tuan Chau Island, Ha Long",
+    "hotelAddress": "Tuan Chau Island, Ha Long City, Quang Ninh Province, Vietnam",
     "awards": {
       "tripAdvisor": "TripAdvisor Travelers' Choice 2023",
       "bestHeritage": "Best Heritage Hotel 2023"
@@ -397,17 +397,17 @@
     },
     "amenities": {
       "freeWifi": "Free WiFi",
-      "freeWifiDesc": "High-speed internet throughout the property",
-      "outdoorPool": "Outdoor Pool",
-      "outdoorPoolDesc": "Rooftop pool with city view",
-      "fitnessCenter": "Fitness Center",
-      "fitnessCenterDesc": "24/7 access to modern equipment"
+      "freeWifiDesc": "High-speed internet throughout the resort",
+      "outdoorPool": "Seaside Pool",
+      "outdoorPoolDesc": "Swimming pool with Ha Long Bay views",
+      "fitnessCenter": "Spa & Wellness",
+      "fitnessCenterDesc": "Premium spa and wellness services"
     },
     "experiences": {
-      "hoanKiemLake": "Hoan Kiem Lake",
-      "hoanKiemDesc": "Historic lake in the heart of Hanoi",
-      "scenicViews": "Scenic views",
-      "historicSignificance": "Historic significance"
+      "hoanKiemLake": "Tuan Chau Park",
+      "hoanKiemDesc": "Large entertainment park right next to resort",
+      "scenicViews": "Ha Long Bay views",
+      "historicSignificance": "Vietnamese-French architecture"
     },
     "sections": {
       "hotelGallery": "Hotel Gallery",

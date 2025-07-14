@@ -1,8 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Calendar, Users, MapPin, CreditCard, User, Mail, Phone, Star } from 'lucide-react';
+
+import { testBasicClient } from '@/lib/services/test-client';
 
 interface Room {
   id: string;
@@ -108,6 +110,12 @@ export default function BookingForm({
       console.log('Booking submitted:', bookingData);
     }
   };
+  useEffect(() => {
+    // Chỉ test khi development
+    if (process.env.NODE_ENV === 'development') {
+      testBasicClient();
+    }
+  }, []);
 
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-8">

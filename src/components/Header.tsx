@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import LanguageSelector from './LanguageSelector';
 import AuthModal, { useAuthModal } from './AuthModal';
-import { Menu, X, User, ChevronDown, Settings, LogOut, Calendar, Shield } from 'lucide-react';
+import { Menu, X, User, ChevronDown, Settings, LogOut, Shield } from 'lucide-react';
 import { useState } from 'react';
 
 export default function Header() {
@@ -85,28 +85,48 @@ export default function Header() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href={`/${currentLocale}`}>
-              <h1 className="text-2xl font-bold text-primary-600 cursor-pointer">HotelBook</h1>
+              <h1 className="text-2xl font-bold text-primary-600 cursor-pointer">Tuần Châu Resort</h1>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            <Link href={`/${currentLocale}`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
-              {t('home')}
+          <nav className="hidden lg:flex space-x-4 xl:space-x-6">
+            {/* Đặt chỗ/My booking */}
+            {isLoggedIn ? (
+              <Link href={`/${currentLocale}/bookings`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+                My Booking
+              </Link>
+            ) : (
+              <Link href={`/${currentLocale}/booking`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+                Đặt chỗ
+              </Link>
+            )}
+            
+            <Link href={`/${currentLocale}/promotions`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Ưu đãi
             </Link>
             <Link href={`/${currentLocale}/search`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
-              {t('hotels')}
+              Phòng nghỉ
             </Link>
-            <Link href={`/${currentLocale}/bookings`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
-              My Bookings
+            <Link href={`/${currentLocale}/amenities`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Tiện ích
             </Link>
-            <a href="#" className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
-              {t('contact')}
-            </a>
+            <Link href={`/${currentLocale}/dining`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Ẩm thực
+            </Link>
+            <Link href={`/${currentLocale}/gallery`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Thư viện
+            </Link>
+            <Link href={`/${currentLocale}/blog`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Blog
+            </Link>
+            <Link href={`/${currentLocale}/contact`} className="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200">
+              Liên hệ
+            </Link>
           </nav>
 
           {/* Right Side */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             <LanguageSelector />
             
             {/* User Menu - Show when logged in */}
@@ -150,15 +170,6 @@ export default function Header() {
                       >
                         <User className="w-5 h-5" />
                         <span>My Profile</span>
-                      </Link>
-                      
-                      <Link
-                        href={`/${currentLocale}/bookings`}
-                        className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
-                        onClick={() => setIsUserMenuOpen(false)}
-                      >
-                        <Calendar className="w-5 h-5" />
-                        <span>My Bookings</span>
                       </Link>
                       
                       <Link
@@ -212,7 +223,7 @@ export default function Header() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-4">
             <LanguageSelector />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -225,20 +236,40 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 py-4">
+          <div className="lg:hidden border-t border-gray-100 py-4">
             <div className="flex flex-col space-y-4">
-              <Link href={`/${currentLocale}`} className="text-gray-700 hover:text-primary-600 font-medium">
-                {t('home')}
+              {/* Đặt chỗ/My booking */}
+              {isLoggedIn ? (
+                <Link href={`/${currentLocale}/bookings`} className="text-gray-700 hover:text-primary-600 font-medium">
+                  My Booking
+                </Link>
+              ) : (
+                <Link href={`/${currentLocale}/booking`} className="text-gray-700 hover:text-primary-600 font-medium">
+                  Đặt chỗ
+                </Link>
+              )}
+              
+              <Link href={`/${currentLocale}/promotions`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Ưu đãi
               </Link>
               <Link href={`/${currentLocale}/search`} className="text-gray-700 hover:text-primary-600 font-medium">
-                {t('hotels')}
+                Phòng nghỉ
               </Link>
-              <Link href={`/${currentLocale}/bookings`} className="text-gray-700 hover:text-primary-600 font-medium">
-                My Bookings
+              <Link href={`/${currentLocale}/amenities`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Tiện ích
               </Link>
-              <a href="#" className="text-gray-700 hover:text-primary-600 font-medium">
-                {t('contact')}
-              </a>
+              <Link href={`/${currentLocale}/dining`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Ẩm thực
+              </Link>
+              <Link href={`/${currentLocale}/gallery`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Thư viện
+              </Link>
+              <Link href={`/${currentLocale}/blog`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Blog
+              </Link>
+              <Link href={`/${currentLocale}/contact`} className="text-gray-700 hover:text-primary-600 font-medium">
+                Liên hệ
+              </Link>
               
               {/* Mobile User Menu */}
               <div className="pt-4 border-t border-gray-100">
